@@ -6,8 +6,8 @@ line_number = 1
 
 for line in lines:
     numbers = line.strip().split(',')
-    total_sum = sum(int(num) for num in numbers)
-    palindrome_status = "Palindrome" if str(total_sum) == str(total_sum)[::-1] else "Not a palindrome"
+    total = sum(int(num) for num in numbers)
+    status = "Palindrome" if str(total) == str(total)[::-1] else "Not a palindrome"
     
-    print(f"Line {line_number}: {line.strip()} ({total_sum}) - {palindrome_status}")
+    print(f"Line {line_number}: {line.strip()} ({total}) - {status}")
     line_number += 1  
