@@ -6,7 +6,7 @@ def sort_by_last_name(record):
 def compute_grade(record):
     return (record[3] * 0.6) + (record[4] * 0.4)  
 
-with open("students.txt", "r") as file:
+with open("Laboratory 04 - List and Tuple\student_record.txt", "r") as file:
     for line in file:
         data = line.strip().split("|")
         if len(data) == 5:
@@ -73,7 +73,7 @@ while True:
         else:
             print("Student not found.")
     elif choice == "8":
-        with open("students.txt", "w") as file:
+        with open("Laboratory 04 - List and Tuple\student_record.txt", "w") as file:
             for record in records:
                 file.write(f"{record[0]}|{record[1]}|{record[2]}|{record[3]}|{record[4]}\n")
         print("Records saved successfully.")
