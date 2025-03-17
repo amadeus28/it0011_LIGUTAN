@@ -1,6 +1,6 @@
 wordsFilteredCounter = 0
 wordCounter = 0
-excludedWords = ("and", "but", "or", "nor", "for", "so", "yet", "an", "and", "the", "of")
+excludedWords = ("and", "but", "or", "nor", "for", "so", "yet", "a", "an", "the", "of")
 dictWord = {}
 lowercaseWords = []
 uppercaseWords = []
