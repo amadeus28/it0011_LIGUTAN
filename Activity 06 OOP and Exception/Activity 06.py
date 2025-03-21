@@ -1,5 +1,5 @@
 class Item:
-    def __init__(self, item_id: int, name: str, description: str, price: float):
+    def __init__(self, item_id, name, description, price):
         if item_id <= 0:
             raise ValueError("Item ID must be a positive integer.")
         if not name.strip():
@@ -12,35 +12,35 @@ class Item:
         self.description = description.strip()
         self.price = price
 
-class ItemManager:
+class ItemManagement(Item):
     def __init__(self):
         self.items = {}
     
-    def create_item(self, item_id, name, description, price):
+    def add_item(self, item_id, name, description, price):
         if item_id in self.items:
-            print("Item ID already exists.")
+            print("Item ID already exists!")
             return
         try:
             self.items[item_id] = Item(item_id, name, description, price)
             print("Item added successfully!")
         except ValueError as e:
-            print("Error: " + str(e))
+            print("Error:", e)
     
-    def read_items(self):
+    def display_items(self):
         if not self.items:
-            print("No items available.")
+            print("No items to display.")
         else:
             for item in self.items.values():
-                print("ID:", item.id, "Name:", item.name, "Description:", item.description, "Price: $", round(item.price, 2))
+                print("ID:", item.id, "Name:", item.name, "Description:", item.description, "Price:", item.price,"Php")
     
     def update_item(self, item_id, name=None, description=None, price=None):
         if item_id not in self.items:
-            print("Item ID not found.")
+            print("Item ID not found!")
             return
         
         item = self.items[item_id]
         if name:
-            item.name = name.strip() 
+            item.name = name.strip()
         if description:
             item.description = description.strip()
         if price is not None and price >= 0:
@@ -52,18 +52,18 @@ class ItemManager:
             del self.items[item_id]
             print("Item deleted successfully!")
         else:
-            print("Item ID not found.")
+            print("Item ID not found!")
 
 def main():
-    manager = ItemManager()
+    itemManager = ItemManagement()
     while True:
-        print("\nItem Management System")
-        print("1. Add Item")
-        print("2. View Items")
-        print("3. Update Item")
-        print("4. Delete Item")
-        print("5. Exit")
-        choice = input("Choose an option: ")
+        print("\nItem Management Application (CREATE, READ, UPDATE, DELETE)")
+        print("1 - Add Item")
+        print("2 - Display Items")
+        print("3 - Update Item")
+        print("4 - Delete Item")
+        print("5 - Exit Program")
+        choice = input("Enter the number of choice [1-5]: ")
         
         if choice == "1":
             try:
@@ -71,31 +71,31 @@ def main():
                 name = input("Enter Item Name: ")
                 description = input("Enter Description: ")
                 price = float(input("Enter Price: "))
-                manager.create_item(item_id, name, description, price)
+                itemManager.add_item(item_id, name, description, price)
             except ValueError:
-                print("Invalid input! Please enter valid values.")
+                print("Error! There was an invalid input.")
         elif choice == "2":
-            manager.read_items()
+            itemManager.display_items()
         elif choice == "3":
             try:
                 item_id = int(input("Enter Item ID to update: "))
-                name = input("Enter new Name (leave blank to keep current): ")
-                description = input("Enter new Description (leave blank to keep current): ")
-                price_input = input("Enter new Price (leave blank to keep current): ")
+                name = input("Enter Updated Name: ") or None
+                description = input("Enter Updated Description: ") or None
+                price_input = input("Enter Updated Price: ")
                 price = float(price_input) if price_input else None
-                manager.update_item(item_id, name or None, description or None, price)
+                itemManager.update_item(item_id, name, description, price)
             except ValueError:
-                print("Invalid input! Please enter valid values.")
+                print("Error! There was an invalid input.")
         elif choice == "4":
             try:
                 item_id = int(input("Enter Item ID to delete: "))
-                manager.delete_item(item_id)
+                itemManager.delete_item(item_id)
             except ValueError:
-                print("Invalid input! Please enter a valid ID.")
+                print("Error! There was an invalid input.")
         elif choice == "5":
-            print("Exiting application...")
+            print("Program Exited.")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid input! Please enter a valid choice.")
 
 main()
